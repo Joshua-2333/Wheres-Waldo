@@ -1,6 +1,6 @@
 // client/scripts/app.js
 import { validateGuess, postScore, getLeaderboard } from "./api.js";
-import confetti from "https://cdn.skypack.dev/canvas-confetti";
+import confetti from "https://esm.sh/canvas-confetti";
 
 const image = document.getElementById("game-image");
 const targetBox = document.getElementById("target-box");
@@ -108,9 +108,11 @@ async function showLeaderboard(finalTime) {
       const li = document.createElement("li");
       li.style.animationDelay = `${i * 0.05}s`;
       li.innerHTML = `<span>${score.name}</span><span>${formatTime(score.time_seconds)}</span>`;
+
       if (score.name === playerName && score.time_seconds === finalTime) {
         li.classList.add("highlight");
       }
+
       leaderboardList.appendChild(li);
     });
   } catch {
@@ -118,11 +120,21 @@ async function showLeaderboard(finalTime) {
     showToast("Leaderboard offline — using local", "error");
 
     const fallback = JSON.parse(localStorage.getItem(`scores_${scene}`)) || [];
-    fallback.push({ name: playerName, time_seconds: finalTime });
+
+    fallback.push({
+      name: playerName,
+      time_seconds: finalTime,
+    });
+
     fallback.sort((a, b) => a.time_seconds - b.time_seconds);
-    localStorage.setItem(`scores_${scene}`, JSON.stringify(fallback.slice(0, 10)));
+
+    localStorage.setItem(
+      `scores_${scene}`,
+      JSON.stringify(fallback.slice(0, 10))
+    );
 
     bestBadge.classList.remove("hidden");
+
     fallback.forEach((score) => {
       const li = document.createElement("li");
       li.innerHTML = `<span>${score.name}</span><span>${formatTime(score.time_seconds)}</span>`;
@@ -137,10 +149,15 @@ function checkWin() {
     stopTimer();
     winMessage.classList.remove("hidden");
 
-    confetti({ particleCount: 200, spread: 80, origin: { y: 0.6 } });
+    confetti({
+      particleCount: 200,
+      spread: 80,
+      origin: { y: 0.6 },
+    });
 
-    postScore(playerName, scene, seconds)
-      .finally(() => showLeaderboard(seconds));
+    postScore(playerName, scene, seconds).finally(() => {
+      showLeaderboard(seconds);
+    });
   }
 }
 
@@ -156,7 +173,10 @@ function drawMarker(x, y, color = "green", temporary = false) {
   marker.style.top = `${rect.top - containerRect.top + y * rect.height}px`;
 
   gameContainer.appendChild(marker);
-  if (temporary) setTimeout(() => marker.remove(), 800);
+
+  if (temporary) {
+    setTimeout(() => marker.remove(), 800);
+  }
 }
 
 startTimer();
@@ -217,5 +237,10 @@ select.addEventListener("change", async (e) => {
   }
 });
 
-document.getElementById("replay-btn").onclick = () => location.reload();
-document.getElementById("home-btn").onclick = () => (location.href = "index.html");
+document.getElementById("replay-btn").onclick = () => {
+  location.reload();
+};
+
+document.getElementById("home-btn").onclick = () => {
+  location.href = "./index.html";
+};
