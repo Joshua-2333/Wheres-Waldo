@@ -51,22 +51,6 @@ const foundCharacters = new Set();
 let seconds = 0;
 let timerInterval = null;
 
-/* ===== TEMP COORDINATE HELPER ===== */
-const coordBox = document.createElement("div");
-coordBox.style.position = "fixed";
-coordBox.style.bottom = "20px";
-coordBox.style.left = "20px";
-coordBox.style.background = "black";
-coordBox.style.color = "lime";
-coordBox.style.padding = "10px";
-coordBox.style.fontSize = "18px";
-coordBox.style.fontFamily = "monospace";
-coordBox.style.zIndex = "99999";
-coordBox.style.borderRadius = "8px";
-coordBox.style.boxShadow = "0 4px 12px rgba(0,0,0,0.3)";
-coordBox.textContent = "Click map to get coordinates";
-document.body.appendChild(coordBox);
-
 /* ===== ORIENTATION LOCK ===== */
 function checkOrientation() {
   const isMobile = window.innerWidth < 1024;
@@ -209,9 +193,6 @@ image.addEventListener("click", (e) => {
     y: (e.clientY - rect.top) / rect.height,
   };
 
-  coordBox.textContent = `Scene: ${scene} | x: ${lastClick.x.toFixed(4)}, y: ${lastClick.y.toFixed(4)}`;
-  console.log(`Scene: ${scene} | x: ${lastClick.x.toFixed(4)}, y: ${lastClick.y.toFixed(4)}`);
-
   targetBox.style.left = `${rect.left - containerRect.left + lastClick.x * rect.width}px`;
   targetBox.style.top = `${rect.top - containerRect.top + lastClick.y * rect.height}px`;
 
@@ -248,6 +229,9 @@ select.addEventListener("change", async (e) => {
     } else {
       showToast("Close, but not quite 👀", "error");
     }
+  } catch (err) {
+    console.error("Guess validation failed:", err);
+    showToast(err.message || "Server error. Try again.", "error");
   } finally {
     targetBox.classList.add("hidden");
     select.value = "";
