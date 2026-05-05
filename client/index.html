@@ -4,29 +4,28 @@
 <head>
   <meta charset="UTF-8" />
   <title>Where’s Waldo - Select Level</title>
-  <link rel="stylesheet" href="styles/styles.css" />
+  <link rel="stylesheet" href="./styles/styles.css" />
 </head>
 <body>
   <h1>Select Your Scene</h1>
 
   <div id="level-grid">
     <div class="level-card" data-scene="winter">
-      <img src="assets/winter.jpg" alt="Winter Scene">
+      <img src="./assets/winter.jpg" alt="Winter Scene">
       <div class="level-title">Winter Scene</div>
     </div>
 
     <div class="level-card" data-scene="beach">
-      <img src="assets/beach.jpeg" alt="Beach Scene">
+      <img src="./assets/beach.jpeg" alt="Beach Scene">
       <div class="level-title">Beach Scene</div>
     </div>
 
     <div class="level-card" data-scene="space">
-      <img src="assets/space.jpg" alt="Space Scene">
+      <img src="./assets/space.jpg" alt="Space Scene">
       <div class="level-title">Space Scene</div>
     </div>
   </div>
 
-  <!-- NAME ENTRY MODAL -->
   <div id="name-modal" class="modal hidden">
     <div class="modal-content">
       <h2>Enter Your Name</h2>
@@ -44,7 +43,7 @@
   <script>
     let selectedScene = null;
 
-    document.querySelectorAll(".level-card").forEach(card => {
+    document.querySelectorAll(".level-card").forEach((card) => {
       card.addEventListener("click", () => {
         selectedScene = card.dataset.scene;
         document.getElementById("name-modal").classList.remove("hidden");
@@ -56,12 +55,12 @@
       const input = document.getElementById("player-name-input");
       const name = input.value.trim();
 
-      if (!name) return;
+      if (!name || !selectedScene) return;
 
       sessionStorage.setItem("playerName", name);
       sessionStorage.setItem("scene", selectedScene);
 
-      window.location.href = `game.html?scene=${selectedScene}`;
+      window.location.href = `./game.html?scene=${selectedScene}`;
     });
   </script>
 </body>

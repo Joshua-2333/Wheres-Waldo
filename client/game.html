@@ -4,13 +4,12 @@
 <head>
   <meta charset="UTF-8" />
   <title>Where’s Waldo</title>
-  <link rel="stylesheet" href="styles/styles.css" />
+  <link rel="stylesheet" href="./styles/styles.css" />
 </head>
 <body>
-
   <h1>Where’s Waldo</h1>
 
-  <a href="index.html" id="back-btn">⬅ Back to Scenes</a>
+  <a href="./index.html" id="back-btn">⬅ Back to Scenes</a>
 
   <div id="timer">Time: 00:00</div>
 
@@ -22,19 +21,22 @@
 
   <div id="characters">
     <div class="character" data-character="waldo">
-      <img src="assets/waldo.jpg" alt="Waldo">
+      <img src="./assets/waldo.jpg" alt="Waldo">
       <p>Waldo</p>
     </div>
+
     <div class="character" data-character="wizard">
-      <img src="assets/wizard.png" alt="Wizard">
+      <img src="./assets/wizard.png" alt="Wizard">
       <p>Wizard</p>
     </div>
+
     <div class="character" data-character="wilma">
-      <img src="assets/wilma.jpg" alt="Wilma">
+      <img src="./assets/wilma.jpg" alt="Wilma">
       <p>Wilma</p>
     </div>
+
     <div class="character" data-character="odlaw">
-      <img src="assets/odlaw.jpg" alt="Odlaw">
+      <img src="./assets/odlaw.jpg" alt="Odlaw">
       <p>Odlaw</p>
     </div>
   </div>
@@ -53,19 +55,16 @@
     </div>
   </div>
 
-  <!-- LEADERBOARD MODAL -->
   <div id="leaderboard-modal" class="modal hidden" aria-hidden="true">
     <div class="modal-content leaderboard">
       <h2 id="leaderboard-title">Leaderboard</h2>
 
-      <!-- Loading state -->
       <div id="leaderboard-loading" class="hidden">
         Loading leaderboard...
       </div>
 
       <ul id="leaderboard-list"></ul>
 
-      <!-- New Best Time badge -->
       <div id="best-badge" class="hidden">
         🏆 New Best Time!
       </div>
@@ -77,7 +76,6 @@
     </div>
   </div>
 
-  <!-- LANDSCAPE ONLY OVERLAY -->
   <div id="rotate-overlay">
     <div>
       <h2>🔄 Rotate Your Device</h2>
@@ -88,11 +86,10 @@
   <script type="module">
     const name = sessionStorage.getItem("playerName");
     if (!name) {
-      window.location.href = "index.html";
+      window.location.href = "./index.html";
     }
   </script>
 
-  <!-- REMOVED coords.js -->
-  <script type="module" src="scripts/app.js"></script>
+  <script type="module" src="./scripts/app.js"></script>
 </body>
 </html>

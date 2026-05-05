@@ -42,7 +42,7 @@ const SCENE_TO_TITLE = {
   space: "Space Scene",
 };
 
-image.src = `assets/${SCENE_TO_FILE[scene]}`;
+image.src = `./assets/${SCENE_TO_FILE[scene]}`;
 
 let lastClick = null;
 let clickLocked = false;
